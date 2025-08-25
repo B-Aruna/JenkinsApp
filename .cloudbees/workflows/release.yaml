@@ -18,7 +18,7 @@ metadata:
         - deploy-to-PREPROD
 jobs:
   deploy-to-PREPROD:
-    uses: https://github.com/B-Aruna/JenkinsApp/blob/main/.cloudbees/workflows/deployer.yaml
+    uses: B-Aruna/JenkinsApp/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
       environment: PREPROD
