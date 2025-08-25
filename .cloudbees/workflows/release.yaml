@@ -18,8 +18,7 @@ metadata:
         - deploy-to-PREPROD
 jobs:
   deploy-to-PREPROD:
-    steps:
-      - name: Deploy to PREPROD
-        uses: docker://golang:1.20.3-alpine3.17
-        shell: sh
-        run: echo "Deploying to PREPROD"
+    uses: https://github.com/B-Aruna/JenkinsApp/blob/main/.cloudbees/workflows/deployer.yaml
+    with:
+      manifest: ${{ inputs.manifest }}
+      environment: PREPROD
