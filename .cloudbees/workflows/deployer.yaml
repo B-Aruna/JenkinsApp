@@ -1,0 +1,30 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: deployer
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      manifest:
+        type: string
+        required: true
+
+jobs:
+  pre-prod:
+    steps:
+      - name: Deploy Component1 to Preprod
+        kind: deploy
+        if: ${{ fromJSON(inputs.manifest)['jenkins-demo5']['jenkins-demo5'].deploy }}
+        uses: cloudbees-io/register-deployed-artifact@v1
+        with:
+          artifact-id: ${{ fromJSON(inputs.manifest)['jenkins-demo5']['jenkins-demo5'].id }}
+          target-environment: ${{ inputs.environment }}
+      - name: Deploy Component2 to Preprod
+        kind: deploy
+        if: ${{ fromJSON(inputs.manifest)['jenkins-demo5']['jenkins-demo5'].deploy }}
+        uses: cloudbees-io/register-deployed-artifact@v1
+        with:
+          artifact-id: ${{ fromJSON(inputs.manifest)['jenkins-demo5']['jenkins-demo5'].id }}
+          target-environment: ${{ inputs.environment }}
