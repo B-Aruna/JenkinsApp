@@ -28,3 +28,10 @@ jobs:
         with:
           artifact-id: ${{ fromJSON(inputs.manifest)['jenkins-demo5']['jenkins-demo5'].id }}
           target-environment: ${{ inputs.environment }}
+      - name: Deploy Component3 to Preprod
+        kind: deploy
+        if: ${{ fromJSON(inputs.manifest)['jenkins-demo']['jenkins-demo'].deploy }}
+        uses: cloudbees-io/register-deployed-artifact@v1
+        with:
+          artifact-id: ${{ fromJSON(inputs.manifest)['jenkins-demo']['jenkins-demo'].id }}
+          target-environment: ${{ inputs.environment }}
